@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameZone</title>
+  <style>
+    :root {
+      --bg: #0d0d1a;
+      --bg2: #13132b;
+      --bg3: #1a1a3a;
+      --accent: #7c3aed;
+      --accent2: #a855f7;
+      --gold: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --card: #1e1e40;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: "Segoe UI", Arial, sans-serif; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,26,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ffffff10;
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 24px; height: 56px;
+    }
+    .logo { font-size: 1.3rem; font-weight: 900; color: var(--accent2); letter-spacing: 1px; margin-right: 16px; flex-shrink: 0; }
+    .logo span { color: var(--gold); }
+    .nav-tabs { display: flex; gap: 4px; }
+    .nav-tab {
+      padding: 6px 16px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 0.9rem; font-weight: 600; background: transparent; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .nav-tab:hover { background: var(--bg3); color: var(--text); }
+    .nav-tab.active { background: var(--accent); color: #fff; }
+    .nav-search {
+      margin-left: auto; position: relative; display: flex; align-items: center;
+    }
+    .nav-search input {
+      background: var(--bg3); border: 1px solid #ffffff15; border-radius: 8px;
+      padding: 7px 14px 7px 36px; color: var(--text); font-size: 0.88rem; width: 220px;
+      outline: none;
+    }
+    .nav-search input:focus { border-color: var(--accent); }
+    .nav-search svg { position: absolute; left: 10px; color: var(--muted); pointer-events: none; }
+
+    /* ── PAGES ── */
+    .page { display: none; padding-top: 56px; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ── GAMES PAGE ── */
+    .hero {
+      background: linear-gradient(135deg, #1a0533 0%, #0d1a4a 50%, #0d0d1a 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; }
+    .hero h1 span { background: linear-gradient(90deg, var(--accent2), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--muted); font-size: 1rem; }
+
+    .filter-bar {
+      display: flex; gap: 8px; padding: 20px 24px 4px; flex-wrap: wrap;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .filter-btn {
+      padding: 6px 16px; border-radius: 20px; border: 1px solid #ffffff15;
+      background: var(--bg2); color: var(--muted); font-size: 0.82rem; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px; padding: 16px 24px 40px;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .game-card {
+      background: var(--card); border-radius: var(--radius); overflow: hidden;
+      cursor: pointer; transition: transform 0.18s, box-shadow 0.18s;
+      border: 1px solid #ffffff08;
+    }
+    .game-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 32px rgba(124,58,237,0.35); border-color: var(--accent); }
+    .game-card img {
+      width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
+      background: var(--bg3);
+    }
+    .game-card-body { padding: 8px 10px 10px; }
+    .game-card-body h3 { font-size: 0.82rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .game-card-body span { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── GAME MODAL ── */
+    #gameModal {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.96); flex-direction: column;
+    }
+    #gameModal.open { display: flex; }
+    .modal-bar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px 16px; background: var(--bg2); border-bottom: 1px solid #ffffff10;
+      flex-shrink: 0;
+    }
+    .modal-bar h2 { font-size: 1rem; font-weight: 700; flex: 1; }
+    .modal-bar button {
+      background: var(--bg3); border: none; color: var(--text); border-radius: 6px;
+      padding: 6px 14px; cursor: pointer; font-size: 0.85rem;
+    }
+    .modal-bar button:hover { background: #ffffff20; }
+    .modal-bar .close-btn { background: #991b1b; }
+    .modal-bar .close-btn:hover { background: #dc2626; }
+    #gameFrame {
+      flex: 1; border: none; width: 100%; height: 100%;
+      background: #000;
+    }
+    .frame-blocked {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 16px; text-align: center; padding: 24px;
+    }
+    .frame-blocked h3 { font-size: 1.4rem; color: var(--accent2); }
+    .frame-blocked p { color: var(--muted); max-width: 400px; }
+    .frame-blocked a {
+      background: var(--accent); color: #fff; padding: 10px 24px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; display: inline-block;
+    }
+
+    /* ── PROXY PAGE ── */
+    .proxy-hero {
+      background: linear-gradient(135deg, #0a2045 0%, #1a0533 100%);
+      padding: 48px 24px 40px; text-align: center;
+    }
+    .proxy-hero h1 { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
+    .proxy-hero p { color: var(--muted); }
+
+    .proxy-bar-wrap { max-width: 700px; margin: 28px auto 0; padding: 0 24px; }
+    .proxy-bar {
+      display: flex; background: var(--bg3); border: 2px solid var(--accent);
+      border-radius: 12px; overflow: hidden;
+    }
+    .proxy-bar input {
+      flex: 1; background: transparent; border: none; padding: 14px 18px;
+      color: var(--text); font-size: 0.95rem; outline: none;
+    }
+    .proxy-bar button {
+      background: var(--accent); border: none; color: #fff; padding: 0 28px;
+      font-weight: 700; cursor: pointer; font-size: 0.95rem;
+    }
+    .proxy-bar button:hover { background: var(--accent2); }
+
+    .proxy-notice {
+      max-width: 700px; margin: 20px auto; padding: 0 24px;
+      background: #1a1a00; border: 1px solid #f59e0b40; border-radius: 10px;
+      padding: 14px 18px; font-size: 0.85rem; color: #d4a700; line-height: 1.6;
+    }
+    .proxy-notice strong { color: var(--gold); }
+    .proxy-notice a { color: var(--gold); }
+
+    #proxyFrame {
+      width: 100%; height: calc(100vh - 56px - 220px); border: none;
+      display: block; background: #000; margin-top: 16px;
+    }
+    .proxy-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: calc(100vh - 56px - 220px); color: var(--muted); gap: 12px; font-size: 0.9rem;
+    }
+    .proxy-placeholder svg { opacity: 0.3; }
+
+    /* ── ABOUT PAGE ── */
+    .about-wrap { max-width: 700px; margin: 0 auto; padding: 48px 24px; }
+    .about-wrap h1 { font-size: 2rem; font-weight: 900; margin-bottom: 24px; }
+    .about-wrap h2 { font-size: 1.2rem; font-weight: 700; margin: 28px 0 10px; color: var(--accent2); }
+    .about-wrap p { color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .about-wrap ul { color: var(--muted); line-height: 1.9; padding-left: 20px; }
+
+    /* ── MISC ── */
+    .badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase; margin-left: 4px;
+    }
+    .badge-hot { background: #dc2626; color: #fff; }
+    .badge-new { background: #16a34a; color: #fff; }
+
+    @media (max-width: 600px) {
+      .game-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 12px; }
+      .hero h1 { font-size: 1.6rem; }
+      .nav-search { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Game<span>Zone</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('games')">🎮 Games</button>
+    <button class="nav-tab" onclick="showPage('proxy')">🌐 Proxy</button>
+    <button class="nav-tab" onclick="showPage('about')">ℹ️ About</button>
+  </div>
+  <div class="nav-search">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Search games..." oninput="filterGames()"/>
+  </div>
+</nav>
+
+<!-- GAMES PAGE -->
+<div class="page active" id="page-games">
+  <div class="hero">
+    <h1>Play <span>Free Games</span> Online</h1>
+    <p>Instant browser games — no downloads, no installs</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('action',this)">Action</button>
+    <button class="filter-btn" onclick="setFilter('racing',this)">Racing</button>
+    <button class="filter-btn" onclick="setFilter('puzzle',this)">Puzzle</button>
+    <button class="filter-btn" onclick="setFilter('idle',this)">Idle</button>
+    <button class="filter-btn" onclick="setFilter('sports',this)">Sports</button>
+    <button class="filter-btn" onclick="setFilter('multiplayer',this)">Multiplayer</button>
+  </div>
+  <div class="game-grid" id="gameGrid"></div>
+</div>
+
+<!-- PROXY PAGE -->
+<div class="page" id="page-proxy">
+  <div class="proxy-hero">
+    <h1>🌐 Web Proxy</h1>
+    <p>Browse websites through GameZone</p>
+  </div>
+  <div class="proxy-bar-wrap">
+    <div class="proxy-bar">
+      <input type="text" id="proxyInput" placeholder="Enter a URL (e.g. google.com)" onkeydown="if(event.key==='Enter')loadProxy()"/>
+      <button onclick="loadProxy()">Go</button>
+    </div>
+  </div>
+  <div class="proxy-notice">
+    <strong>Note:</strong> This is a basic iframe proxy. For a full bypass proxy that works on school/work networks,
+    you need to <a href="#" onclick="showPage('about');return false;">set up the Ultraviolet backend</a> on Render.com (free).
+  </div>
+  <div id="proxyContainer">
+    <div class="proxy-placeholder" id="proxyPlaceholder">
+      <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      <span>Enter a URL above to start browsing</span>
+    </div>
+    <iframe id="proxyFrame" style="display:none" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
+  </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="about-wrap">
+    <h1>About GameZone</h1>
+    <p>A free online game hub with 50+ browser games and a built-in web proxy.</p>
+
+    <h2>Setting up a Full Proxy</h2>
+    <p>The built-in iframe proxy only wraps sites. To bypass school/work network filters, you need <strong>Ultraviolet</strong> — a real service-worker proxy that routes all traffic through your own server.</p>
+    <p><strong>Step 1:</strong> Create a free account at <strong>render.com</strong></p>
+    <p><strong>Step 2:</strong> Deploy this repo: <code style="background:#1e1e40;padding:2px 8px;border-radius:4px">titaniumnetwork-org/ultraviolet-app</code> as a Web Service on Render</p>
+    <p><strong>Step 3:</strong> Once deployed, Render gives you a URL like <code style="background:#1e1e40;padding:2px 8px;border-radius:4px">https://your-app.onrender.com</code></p>
+    <p><strong>Step 4:</strong> Edit <code style="background:#1e1e40;padding:2px 8px;border-radius:4px">index.html</code> in this site and set <code style="background:#1e1e40;padding:2px 8px;border-radius:4px">PROXY_BACKEND</code> to your Render URL</p>
+
+    <h2>Games</h2>
+    <p>All games are sourced from <a href="https://pizzaedition.win" style="color:var(--accent2)">The Pizza Edition</a> and open in a fullscreen overlay.</p>
+
+    <h2>Hosting</h2>
+    <ul>
+      <li>Deploy to GitHub Pages — upload <code>index.html</code> as your repo's root file</li>
+      <li>Or drag and drop to <strong>netlify.com/drop</strong> for an instant URL</li>
+    </ul>
+  </div>
+</div>
+
+<!-- GAME MODAL -->
+<div id="gameModal">
+  <div class="modal-bar">
+    <h2 id="modalTitle">Game</h2>
+    <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+    <button onclick="window.open(currentGameUrl,'_blank')">↗ New Tab</button>
+    <button class="close-btn" onclick="closeGame()">✕ Close</button>
+  </div>
+  <iframe id="gameFrame" allowfullscreen allow="fullscreen"></iframe>
+  <div class="frame-blocked" id="frameBlocked">
+    <h3>Game blocked by browser</h3>
+    <p>This game can't be embedded here. Click below to open it on the original site.</p>
+    <a id="openOriginal" href="#" target="_blank">Open on Pizza Edition ↗</a>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+const BASE = "https://pizzaedition.win";
+const PROXY_BACKEND = ""; // set to your Render URL for full proxy
+
+// ── GAME DATA ──
+const GAMES = [
+  { slug:"slope",            title:"Slope",               cat:"action",     hot:true  },
+  { slug:"geometrydash",     title:"Geometry Dash",       cat:"action",     hot:true  },
+  { slug:"cookieclicker",    title:"Cookie Clicker",      cat:"idle",       hot:true  },
+  { slug:"1v1lol",           title:"1v1.LOL",             cat:"multiplayer",hot:true  },
+  { slug:"polytrack",        title:"Polytrack",           cat:"racing",     hot:true  },
+  { slug:"retrobowl",        title:"Retro Bowl",          cat:"sports",                },
+  { slug:"retrobowlcollege", title:"Retro Bowl College",  cat:"sports",     isnew:true},
+  { slug:"clusterrush",      title:"Cluster Rush",        cat:"action",                },
+  { slug:"snowrider3d",      title:"Snow Rider 3D",       cat:"racing",                },
+  { slug:"drivemad",         title:"Drive Mad",           cat:"racing",                },
+  { slug:"bitlife",          title:"BitLife",             cat:"idle",                  },
+  { slug:"blockblast",       title:"Block Blast",         cat:"puzzle",                },
+  { slug:"escaperoad",       title:"Escape Road",         cat:"racing",                },
+  { slug:"leveldevil",       title:"Level Devil",         cat:"action",                },
+  { slug:"hillclimbracing",  title:"Hill Climb Racing",   cat:"racing",                },
+  { slug:"bowmasters",       title:"Bow Masters",         cat:"action",                },
+  { slug:"basketballstars",  title:"Basketball Stars",    cat:"sports",                },
+  { slug:"basketrandom",     title:"Basketball Random",   cat:"sports",                },
+  { slug:"asmallworldcup",   title:"A Small World Cup",   cat:"sports",                },
+  { slug:"subwaysurfers",    title:"Subway Surfers",      cat:"action",                },
+  { slug:"tunnelrush2",      title:"Tunnel Rush 2",       cat:"action",                },
+  { slug:"driftboss",        title:"Drift Boss",          cat:"racing",                },
+  { slug:"paperio2",         title:"Paper.io 2",          cat:"multiplayer",           },
+  { slug:"tinyfishing",      title:"Tiny Fishing",        cat:"idle",                  },
+  { slug:"monkeymart",       title:"Monkey Mart",         cat:"idle",                  },
+  { slug:"idleants",         title:"Idle Ants",           cat:"idle",                  },
+  { slug:"cappybaraclicker", title:"Capybara Clicker",    cat:"idle",       isnew:true },
+  { slug:"tombofthemask",    title:"Tomb of the Mask",    cat:"action",                },
+  { slug:"stickmanhook",     title:"Stickman Hook",       cat:"action",                },
+  { slug:"stickmanclimb3d",  title:"Stickman Climb 3D",   cat:"action",                },
+  { slug:"stickmanrun",      title:"Stickman Run",        cat:"action",                },
+  { slug:"dreadheadparkour", title:"Dreadhead Parkour",   cat:"action",                },
+  { slug:"gladihoppers",     title:"Gladihoppers",        cat:"action",                },
+  { slug:"templeofboom",     title:"Temple of Boom",      cat:"action",                },
+  { slug:"ragdollfall",      title:"Ragdoll Fall",        cat:"action",                },
+  { slug:"ragdollarchers",   title:"Ragdoll Archers",     cat:"action",                },
+  { slug:"gunspin",          title:"Gun Spin",            cat:"action",                },
+  { slug:"geometrydashsubzero", title:"GD SubZero",       cat:"action",                },
+  { slug:"deadlydecent",     title:"Deadly Decent",       cat:"action",                },
+  { slug:"racesurvival",     title:"Race Survival",       cat:"racing",                },
+  { slug:"fullspeedracing",  title:"Full Speed Racing",   cat:"racing",                },
+  { slug:"turbomotoracer",   title:"Turbo Moto Racer",    cat:"racing",                },
+  { slug:"monstertracks",    title:"Monster Tracks",      cat:"racing",                },
+  { slug:"crazybikes",       title:"Crazy Bikes",         cat:"racing",                },
+  { slug:"stuntbikeextreme", title:"Stunt Bike Extreme",  cat:"racing",                },
+  { slug:"bikeobby",         title:"Bike Obby",           cat:"racing",                },
+  { slug:"steelhills",       title:"Steel Hills",         cat:"racing",                },
+  { slug:"slowroads",        title:"Slow Roads",          cat:"racing",                },
+  { slug:"golforbit",        title:"Golf Orbit",          cat:"sports",                },
+  { slug:"unicyclehero",     title:"Unicycle Hero",       cat:"sports",                },
+  { slug:"pingponggo",       title:"Ping Pong Go",        cat:"sports",                },
+  { slug:"superliquidsoccer",title:"Super Liquid Soccer", cat:"sports",                },
+  { slug:"spiralroll",       title:"Spiral Roll",         cat:"puzzle",                },
+  { slug:"braintest",        title:"Brain Test",          cat:"puzzle",                },
+  { slug:"stacktris",        title:"Stacktris",           cat:"puzzle",                },
+  { slug:"coreball",         title:"Core Ball",           cat:"puzzle",                },
+  { slug:"smashit",          title:"Smash It",            cat:"puzzle",                },
+  { slug:"jumponly",         title:"Jump Only",           cat:"puzzle",                },
+  { slug:"harvestsimulator", title:"Harvest Simulator",   cat:"idle",                  },
+  { slug:"beeswarmsimulator",title:"Bee Swarm Simulator", cat:"idle",                  },
+  { slug:"skyriders",        title:"Sky Riders",          cat:"action",                },
+  { slug:"roper",            title:"Roper",               cat:"action",                },
+  { slug:"swingo",           title:"Swingo",              cat:"action",                },
+  { slug:"dune",             title:"Dune",                cat:"action",                },
+  { slug:"mineline",         title:"Mine Line",           cat:"puzzle",                },
+  { slug:"policechase",      title:"Police Chase",        cat:"racing",                },
+  { slug:"madskillsmotocross2",title:"Mad Skills MX2",    cat:"racing",                },
+  { slug:"TanukiSunset",     title:"Tanuki Sunset",       cat:"racing",                },
+  { slug:"FNAF1",            title:"FNAF 1",              cat:"action",                },
+  { slug:"ovodimensions",    title:"OvO Dimensions",      cat:"action",                },
+  { slug:"tinytowers",       title:"Tiny Towers",         cat:"idle",                  },
+  { slug:"crazycars",        title:"Crazy Cars",          cat:"racing",                },
+  { slug:"mrracer",          title:"Mr. Racer",           cat:"racing",                },
+];
+
+// Known image overrides (slug -> actual filename on their CDN)
+const IMG_OVERRIDES = {
+  ragdollfall: "ragdolldrop",
+  retrobowlcollege: "rbcollege",
+  clusterrush: "cluster",
+};
+
+function thumbUrl(slug) {
+  const file = IMG_OVERRIDES[slug] || slug;
+  return `${BASE}/avifgames/${file}.avif`;
+}
+
+function gameUrl(slug) {
+  return `${BASE}/assets/mainstorage/${slug}.html`;
+}
+
+// ── STATE ──
+let currentFilter = "all";
+let currentGameUrl = "";
+
+// ── RENDER GAMES ──
+function renderGames(list) {
+  const grid = document.getElementById("gameGrid");
+  grid.innerHTML = "";
+  list.forEach(g => {
+    const card = document.createElement("div");
+    card.className = "game-card";
+    card.dataset.cat = g.cat;
+    card.onclick = () => openGame(g);
+    const badge = g.hot ? '<span class="badge badge-hot">HOT</span>' : g.isnew ? '<span class="badge badge-new">NEW</span>' : '';
+    card.innerHTML = `
+      <img src="${thumbUrl(g.slug)}" alt="${g.title}" loading="lazy" onerror="this.src='${BASE}/apnggames/${g.slug}.png';this.onerror=null;">
+      <div class="game-card-body">
+        <h3>${g.title}${badge}</h3>
+        <span>${g.cat}</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterGames() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const list = GAMES.filter(g => {
+    const matchCat = currentFilter === "all" || g.cat === currentFilter;
+    const matchQ = g.title.toLowerCase().includes(query) || g.cat.includes(query);
+    return matchCat && matchQ;
+  });
+  renderGames(list);
+}
+
+function setFilter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  filterGames();
+}
+
+// ── GAME MODAL ──
+function openGame(g) {
+  currentGameUrl = gameUrl(g.slug);
+  const modal = document.getElementById("gameModal");
+  const frame = document.getElementById("gameFrame");
+  const blocked = document.getElementById("frameBlocked");
+  document.getElementById("modalTitle").textContent = g.title;
+  document.getElementById("openOriginal").href = `${BASE}/g/${g.slug}`;
+  frame.style.display = "block";
+  blocked.style.display = "none";
+  frame.src = currentGameUrl;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  // Detect if iframe is blocked (X-Frame-Options)
+  frame.onerror = () => showBlocked();
+  const check = setTimeout(() => {
+    try {
+      if (!frame.contentDocument && !frame.contentWindow?.location?.href) showBlocked();
+    } catch(e) { /* cross-origin is fine */ }
+  }, 3000);
+  frame.onload = () => clearTimeout(check);
+}
+
+function showBlocked() {
+  document.getElementById("gameFrame").style.display = "none";
+  document.getElementById("frameBlocked").style.display = "flex";
+}
+
+function closeGame() {
+  const modal = document.getElementById("gameModal");
+  const frame = document.getElementById("gameFrame");
+  frame.src = "about:blank";
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function toggleFullscreen() {
+  const modal = document.getElementById("gameModal");
+  if (!document.fullscreenElement) modal.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeGame();
+});
+
+// ── PROXY ──
+function loadProxy() {
+  let url = document.getElementById("proxyInput").value.trim();
+  if (!url) return;
+  if (!url.startsWith("http://") && !url.startsWith("https://")) url = "https://" + url;
+
+  const frame = document.getElementById("proxyFrame");
+  const placeholder = document.getElementById("proxyPlaceholder");
+
+  if (PROXY_BACKEND) {
+    // Full Ultraviolet proxy
+    frame.src = `${PROXY_BACKEND}/service/${btoa(url)}`;
+  } else {
+    // Simple iframe proxy
+    frame.src = url;
+  }
+  frame.style.display = "block";
+  placeholder.style.display = "none";
+}
+
+// ── PAGE NAVIGATION ──
+function showPage(name) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("page-" + name).classList.add("active");
+  const idx = {games:0,proxy:1,about:2}[name];
+  document.querySelectorAll(".nav-tab")[idx].classList.add("active");
+}
+
+// ── INIT ──
+renderGames(GAMES);
+</script>
+</body>
+</html>
