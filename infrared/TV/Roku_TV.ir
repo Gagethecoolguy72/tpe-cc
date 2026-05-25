@@ -1,0 +1,116 @@
+Filetype: IR signals file
+Version: 1
+
+name: Power
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 41 BE 00 00
+
+name: Vol_up
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 02 FD 00 00
+
+name: Vol_dn
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 03 FC 00 00
+
+name: Mute
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 09 F6 00 00
+
+name: Home
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0E F1 00 00
+
+name: Back
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0A F5 00 00
+
+name: Options
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 12 ED 00 00
+
+name: Up
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0B F4 00 00
+
+name: Down
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0F F0 00 00
+
+name: Left
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0C F3 00 00
+
+name: Right
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0D F2 00 00
+
+name: OK
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 0B F4 00 00
+
+name: Rewind
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 08 F7 00 00
+
+name: Play_pause
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 07 F8 00 00
+
+name: Fast_forward
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 04 FB 00 00
+
+name: Netflix
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 17 E8 00 00
+
+name: Hulu
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 19 E6 00 00
+
+name: Disney_plus
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 1B E4 00 00
+
+name: Apple_TV_app
+type: parsed
+protocol: NEC
+address: 58 A7 00 00
+command: 1D E2 00 00

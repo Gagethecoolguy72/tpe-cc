@@ -1,0 +1,122 @@
+Filetype: IR signals file
+Version: 1
+
+name: Power
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 02 FD 00 00
+
+name: Power_off_confirm
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 02 FD 00 00
+
+name: Source_search
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 05 FA 00 00
+
+name: HDMI1
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 34 CB 00 00
+
+name: HDMI2
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 75 8A 00 00
+
+name: Computer
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 14 EB 00 00
+
+name: Up
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 30 CF 00 00
+
+name: Down
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 31 CE 00 00
+
+name: Left
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 32 CD 00 00
+
+name: Right
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 33 CC 00 00
+
+name: Enter
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 16 E9 00 00
+
+name: Menu
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 35 CA 00 00
+
+name: Escape
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 15 EA 00 00
+
+name: Blank
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 04 FB 00 00
+
+name: Freeze
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 0E F1 00 00
+
+name: Zoom_in
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 50 AF 00 00
+
+name: Zoom_out
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 51 AE 00 00
+
+name: Vol_up
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 56 A9 00 00
+
+name: Vol_dn
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 57 A8 00 00
+
+name: Mute
+type: parsed
+protocol: NEC
+address: BC 43 00 00
+command: 1A E5 00 00

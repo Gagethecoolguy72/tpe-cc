@@ -1,0 +1,122 @@
+Filetype: IR signals file
+Version: 1
+
+name: Power
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 15 00 00 00
+
+name: Vol_up
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 12 00 00 00
+
+name: Vol_dn
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 13 00 00 00
+
+name: Mute
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 14 00 00 00
+
+name: Input
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 25 00 00 00
+
+name: HDMI1
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 31 00 00 00
+
+name: HDMI2
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 32 00 00 00
+
+name: HDMI3
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 33 00 00 00
+
+name: Bluetooth
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 45 00 00 00
+
+name: Menu
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 40 00 00 00
+
+name: Up
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 74 00 00 00
+
+name: Down
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 75 00 00 00
+
+name: Left
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 34 00 00 00
+
+name: Right
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 33 00 00 00
+
+name: Enter
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 65 00 00 00
+
+name: Play_pause
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 18 00 00 00
+
+name: Stop
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 19 00 00 00
+
+name: Rewind
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 1B 00 00 00
+
+name: Fast_forward
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 1A 00 00 00
+
+name: Sound_field
+type: parsed
+protocol: SIRC
+address: 1A 00 00 00
+command: 5A 00 00 00

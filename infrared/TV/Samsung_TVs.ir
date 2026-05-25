@@ -1,0 +1,260 @@
+Filetype: IR signals file
+Version: 1
+
+name: Power
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 02 02 00 00
+
+name: Vol_up
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 07 07 00 00
+
+name: Vol_dn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0B 0B 00 00
+
+name: Mute
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0F 0F 00 00
+
+name: Ch_up
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 12 12 00 00
+
+name: Ch_dn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 10 10 00 00
+
+name: Source
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0D 0D 00 00
+
+name: Menu
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 1A 1A 00 00
+
+name: Home
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 7E 7E 00 00
+
+name: Smart_Hub
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 7A 7A 00 00
+
+name: Guide
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 4F 4F 00 00
+
+name: Info
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 1F 1F 00 00
+
+name: Up
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 60 60 00 00
+
+name: Down
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 61 61 00 00
+
+name: Left
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 65 65 00 00
+
+name: Right
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 62 62 00 00
+
+name: OK
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 68 68 00 00
+
+name: Back
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 58 58 00 00
+
+name: Settings
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 4E 4E 00 00
+
+name: Tools
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 4B 4B 00 00
+
+name: Num_0
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 11 11 00 00
+
+name: Num_1
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 04 04 00 00
+
+name: Num_2
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 05 05 00 00
+
+name: Num_3
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 06 06 00 00
+
+name: Num_4
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 08 08 00 00
+
+name: Num_5
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 09 09 00 00
+
+name: Num_6
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0A 0A 00 00
+
+name: Num_7
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0C 0C 00 00
+
+name: Num_8
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 0E 0E 00 00
+
+name: Num_9
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 1E 1E 00 00
+
+name: Sleep_timer
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 03 03 00 00
+
+name: Play_pause
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 47 47 00 00
+
+name: Stop
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 46 46 00 00
+
+name: Rewind
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 45 45 00 00
+
+name: Fast_forward
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 48 48 00 00
+
+name: Netflix
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: AD AD 00 00
+
+name: Rec
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 52 52 00 00
+
+name: Aspect_ratio
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 25 25 00 00
+
+name: Caption
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 49 49 00 00
+
+name: Red_btn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 6E 6E 00 00
+
+name: Green_btn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 6F 6F 00 00
+
+name: Yellow_btn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 6C 6C 00 00
+
+name: Blue_btn
+type: parsed
+protocol: Samsung32
+address: 07 07 00 00
+command: 6D 6D 00 00
