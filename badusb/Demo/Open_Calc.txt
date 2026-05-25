@@ -1,0 +1,13 @@
+REM Title: Open Calculator (Basic Test)
+REM Author: Community
+REM Target: Windows
+REM Description: Simple test script - opens Calculator
+REM Use to verify BadUSB is working
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING calc
+ENTER

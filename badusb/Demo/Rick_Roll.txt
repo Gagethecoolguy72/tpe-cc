@@ -1,0 +1,15 @@
+REM Title: Rick Roll
+REM Author: Community
+REM Target: Windows / macOS / Linux (opens browser)
+REM Description: Opens Rick Astley - Never Gonna Give You Up
+REM Harmless classic prank
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1000
+
+REM Windows
+GUI r
+DELAY 500
+STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ENTER

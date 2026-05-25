@@ -1,0 +1,18 @@
+REM Title: Matrix Rain Terminal
+REM Author: Community
+REM Target: Windows
+REM Description: Opens a PowerShell Matrix rain animation
+REM Harmless demo
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1000
+
+GUI r
+DELAY 600
+STRING powershell
+ENTER
+DELAY 1000
+
+STRING $Host.UI.RawUI.BackgroundColor='Black'; $Host.UI.RawUI.ForegroundColor='Green'; Clear-Host; $w=[console]::WindowWidth; $h=[console]::WindowHeight; $cols=@(); for($i=0;$i-lt$w;$i++){$cols+=[PSCustomObject]@{y=[math]::Floor((Get-Random -Max $h));speed=(Get-Random -Min 1 -Max 4)}}; while($true){for($i=0;$i-lt$w;$i++){[console]::SetCursorPosition($i,$cols[$i].y); Write-Host ([char](Get-Random -Min 33 -Max 127)) -NoNewline; $cols[$i].y=($cols[$i].y+$cols[$i].speed)%$h}; Start-Sleep -Milliseconds 50}
+ENTER

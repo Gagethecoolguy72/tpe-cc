@@ -1,0 +1,57 @@
+REM Title: System Information Dump
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Collects full system info and saves to Desktop\sysinfo.txt
+REM AUTHORIZED USE ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING cmd /k
+ENTER
+DELAY 800
+
+STRING echo === SYSTEM INFO === > %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING systeminfo >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo === NETWORK INFO === >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING ipconfig /all >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo === USERS === >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING net user >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo === RUNNING PROCESSES === >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING tasklist >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo === INSTALLED SOFTWARE === >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING wmic product get name,version >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo === ARP TABLE === >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING arp -a >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo. >> %USERPROFILE%\Desktop\sysinfo.txt
+ENTER
+STRING echo Done! Saved to Desktop\sysinfo.txt
+ENTER
+DELAY 15000
+STRING exit
+ENTER

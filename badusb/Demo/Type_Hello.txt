@@ -1,0 +1,20 @@
+REM Title: Type Hello World
+REM Author: Community
+REM Target: Any OS (opens notepad/textedit)
+REM Description: Basic BadUSB functionality test
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1000
+
+REM Windows: opens notepad
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+DELAY 800
+
+STRING Hello from Flipper Zero! BadUSB is working.
+ENTER
+STRING Firmware by: gagethecoolguy72
+ENTER

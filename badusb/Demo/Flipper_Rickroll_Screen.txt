@@ -1,0 +1,16 @@
+REM Title: Flipper Rickroll Screen
+REM Author: Community  
+REM Target: Windows
+REM Description: Opens Rick Roll and goes fullscreen
+REM Classic Flipper Zero demo
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1000
+
+GUI r
+DELAY 600
+STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ENTER
+DELAY 4000
+F11

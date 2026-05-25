@@ -1,0 +1,10 @@
+REM Title: Quick Lock Workstation
+REM Author: Community
+REM Target: Windows
+REM Description: Instantly locks the workstation
+REM Harmless - for physical security testing
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 500
+GUI l

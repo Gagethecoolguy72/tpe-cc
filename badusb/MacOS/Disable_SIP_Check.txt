@@ -1,0 +1,19 @@
+REM Title: Check SIP (System Integrity Protection) Status
+REM Author: Community
+REM Target: macOS
+REM Description: Checks if SIP is enabled (reconnaissance)
+REM AUTHORIZED USE ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+COMMAND SPACE
+DELAY 600
+STRING terminal
+ENTER
+DELAY 1200
+
+STRING csrutil status; sw_vers; uname -a; id; whoami
+ENTER
+DELAY 2000

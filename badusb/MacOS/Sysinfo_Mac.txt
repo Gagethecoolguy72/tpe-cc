@@ -1,0 +1,41 @@
+REM Title: macOS System Info Dump
+REM Author: Community
+REM Target: macOS
+REM Description: Collects system information to Desktop
+REM AUTHORIZED USE ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+COMMAND SPACE
+DELAY 600
+STRING terminal
+ENTER
+DELAY 1200
+
+STRING OUTPUT=~/Desktop/mac_sysinfo.txt
+ENTER
+STRING echo "=== SYSTEM INFO ==="  > $OUTPUT
+ENTER
+STRING system_profiler SPHardwareDataType SPSoftwareDataType >> $OUTPUT
+ENTER
+STRING echo "=== NETWORK ==="  >> $OUTPUT
+ENTER
+STRING ifconfig >> $OUTPUT
+ENTER
+STRING echo "=== USERS ==="  >> $OUTPUT
+ENTER
+STRING dscl . list /Users | grep -v '^_' >> $OUTPUT
+ENTER
+STRING echo "=== RUNNING PROCESSES ==="  >> $OUTPUT
+ENTER
+STRING ps aux >> $OUTPUT
+ENTER
+STRING echo "=== INSTALLED APPS ==="  >> $OUTPUT
+ENTER
+STRING ls /Applications >> $OUTPUT
+ENTER
+STRING echo "Saved to $OUTPUT"
+ENTER
+DELAY 5000

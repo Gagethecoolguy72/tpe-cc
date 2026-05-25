@@ -1,0 +1,19 @@
+REM Title: Fake BSOD Prank
+REM Author: Community
+REM Target: Windows 10/11
+REM Description: Displays a fake BSOD screen (fullscreen browser, harmless)
+REM HARMLESS PRANK - for entertainment
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+GUI r
+DELAY 600
+STRING powershell -WindowStyle Hidden
+ENTER
+DELAY 1000
+
+STRING $html='<!DOCTYPE html><html><head><style>body{background:#0078D4;color:white;font-family:Segoe UI,sans-serif;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;height:100vh;margin:0;padding:5%}h1{font-size:200px;margin:0;color:white}h2{font-size:40px;font-weight:300;margin:10px 0}p{font-size:22px;max-width:600px;line-height:1.5}span{font-size:18px}</style></head><body><h1>:(</h1><h2>Your PC ran into a problem and needs to restart.</h2><p>Were just collecting some error info, and then well restart for you.</p><br><p style="font-size:28px">0% complete</p><br><span>Stop code: CRITICAL_PROCESS_DIED</span></body></html>'; $path="$env:TEMP\bsod.html"; $html | Out-File $path -Encoding UTF8; Start-Process "$path"; Start-Sleep 2; $wshell=New-Object -ComObject wscript.shell; $wshell.SendKeys("{F11}")
+ENTER
+DELAY 3000

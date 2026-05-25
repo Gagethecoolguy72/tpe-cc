@@ -1,0 +1,14 @@
+REM Title: Screensaver Activation Prank
+REM Author: Community
+REM Target: Windows
+REM Description: Immediately activates screensaver
+REM Harmless prank
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 500
+
+GUI r
+DELAY 500
+STRING powershell -c "(New-Object -ComObject Shell.Application).MinimizeAll(); Start-Sleep 1; $host.UI.RawUI.SetBufferSize((New-Object System.Management.Automation.Host.Size(1,1)))"
+ENTER

